@@ -8,8 +8,9 @@ class bullet
 		~bullet();
 
 		void Draw(sf::RenderWindow& window);
-		void update(sf::RenderWindow& window, bool shooted);
+		void update(sf::RenderWindow& window, bool shooted,float time);
 		void load();
+		float bullet_speed = 1.0f; //i'll make it private
 		sf::Vector2f get_direction();
 		sf::RectangleShape get_rectangleShape();
 

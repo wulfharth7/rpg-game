@@ -9,8 +9,9 @@ class player
 		~player();
 
 		void Draw(sf::RenderWindow& window);
-		void update(sf::RenderWindow& window,sf::Vector2f direction, bullet& bullet);
+		void update(sf::RenderWindow& window,sf::Vector2f direction, bullet& bullet, float time);
 		void load();
+		float player_speed = 1.0f; //i'll make it private
 		sf::Sprite get_texture();
 		int get_x_sheet();
 		int get_y_sheet();

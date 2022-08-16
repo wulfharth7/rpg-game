@@ -16,7 +16,7 @@ void bullet::Draw(sf::RenderWindow& window)
 	window.draw(rectangleShape);
 }
 
-void bullet::update(sf::RenderWindow& window,bool shooted)
+void bullet::update(sf::RenderWindow& window,bool shooted,float time)
 {
 	if (shooted == true) {
 		sf::Vector2f localPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -24,10 +24,10 @@ void bullet::update(sf::RenderWindow& window,bool shooted)
 
 		direction = rectangleShape.getPosition();
 		direction = localPosition - rectangleShape.getPosition();
-		rectangleShape.setPosition(rectangleShape.getPosition() + direction * 0.0003f);
+		rectangleShape.setPosition(rectangleShape.getPosition() + direction * 0.0003f * time * bullet_speed);
 	}
 	else {
-		rectangleShape.setPosition(rectangleShape.getPosition() + direction * 0.0003f);
+		rectangleShape.setPosition(rectangleShape.getPosition() + direction * 0.0003f * time * bullet_speed);
 	}
 	
 }
