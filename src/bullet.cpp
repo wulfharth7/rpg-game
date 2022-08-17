@@ -30,7 +30,7 @@ void bullet::Draw(sf::RenderWindow& window)
 
 void bullet::update(float time)
 {
-		rectangleShape.setPosition(rectangleShape.getPosition() + direction * 0.03f * time * bullet_speed);
+	rectangleShape.setPosition(rectangleShape.getPosition() + direction * 0.03f * time * bullet_speed);
 }
 
 int bullet::get_count()
