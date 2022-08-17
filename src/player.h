@@ -20,5 +20,7 @@ class player
 		int X_spritesheet = 0;
 		int Y_spritesheet = 0;
 		std::vector<bullet> bullets;
+		float maxFireRate;
+		double fireRateTimer;
 };
 

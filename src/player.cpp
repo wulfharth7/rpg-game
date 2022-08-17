@@ -2,9 +2,10 @@
 #include <iostream>
 #include "bullet.h"
 
-player::player()
+player::player():
+    maxFireRate(150), fireRateTimer(0)
 {
-
+    
 }
 
 player::~player()
@@ -12,7 +13,8 @@ player::~player()
 }
 
 void player::Draw(sf::RenderWindow& window)
-{for (size_t i = 0; i < bullets.size(); i++){
+{
+    for (size_t i = 0; i < bullets.size(); i++){
         bullets[i].Draw(window);
     };
     window.draw(playerSprite);
@@ -71,12 +73,13 @@ void player::update(sf::RenderWindow& window, float time)
         playerSprite.setTextureRect(sf::IntRect(X_spritesheet * 64, Y_spritesheet * 64, 64, 64));
     }*/
     //check walking
-
+    fireRateTimer += time;
     //shoot
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && fireRateTimer >= maxFireRate) {
         bullets.push_back(bullet(10,10,playerSprite.getPosition(),mousePos));
         int i = bullets.size() - 1;
         //bullets[i].update(window,time);
+        fireRateTimer = 0;
     }
     //else {
         for (size_t i = 0; i < bullets.size(); i++)
