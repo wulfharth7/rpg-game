@@ -1,8 +1,6 @@
 #include "player.h"
 #include <iostream>
 #include "bullet.h"
-void shoot(sf::RenderWindow& window, sf::Vector2f direction, bullet& bullet);
-void walk(sf::Sprite playerSprite, int X_spritesheet, int Y_spritesheet);
 
 player::player()
 {
@@ -14,12 +12,18 @@ player::~player()
 }
 
 void player::Draw(sf::RenderWindow& window)
-{
+{for (size_t i = 0; i < bullets.size(); i++){
+        bullets[i].Draw(window);
+    };
     window.draw(playerSprite);
+    
 }
 
-void player::update(sf::RenderWindow& window, sf::Vector2f direction, bullet& bullet, float time)
+void player::update(sf::RenderWindow& window, float time)
 {
+    mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
+    //check walking
     sf::Vector2f position = playerSprite.getPosition();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         X_spritesheet = X_spritesheet++;
@@ -66,14 +70,24 @@ void player::update(sf::RenderWindow& window, sf::Vector2f direction, bullet& bu
         X_spritesheet = 0;
         playerSprite.setTextureRect(sf::IntRect(X_spritesheet * 64, Y_spritesheet * 64, 64, 64));
     }*/
+    //check walking
+
     //shoot
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        bullet.update(window, true,time);
+        bullets.push_back(bullet(10,10,playerSprite.getPosition(),mousePos));
+        int i = bullets.size() - 1;
+        //bullets[i].update(window,time);
     }
-    else {
-        bullet.update(window, false,time);
-    }
-    bullet.Draw(window); //ill create a list for bullets
+    //else {
+        for (size_t i = 0; i < bullets.size(); i++)
+        {
+            bullets[i].update(time);
+
+            //check collision
+        }
+        //bullet.update(window, false,time);
+    //}
+    //shoot
 }
 
 void player::load()
@@ -86,13 +100,4 @@ void player::load()
     else {
         std::cout << "player image couldn't load" << std::endl;
     }
-}
-
-void shoot(sf::RenderWindow& window, sf::Vector2f direction, bullet& bullet)
-{
-    
-}
-
-void walk(sf::Sprite playerSprite, int X_spritesheet, int Y_spritesheet) {
-    
 }

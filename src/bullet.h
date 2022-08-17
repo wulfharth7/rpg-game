@@ -4,13 +4,16 @@
 class bullet
 {
 	public:
-		bullet(int x, int y);
+		bullet(int x, int y, const sf::Vector2f& position, const sf::Vector2f& target);
 		~bullet();
 
 		void Draw(sf::RenderWindow& window);
-		void update(sf::RenderWindow& window, bool shooted,float time);
-		void load();
-		float bullet_speed = 1.0f; //i'll make it private
+		void update(float time);
+		//void load();
+		int get_count();
+		void set_count(int count);
+		
+		float bullet_speed = 10.5f; //i'll make it private
 		sf::Vector2f get_direction();
 		sf::RectangleShape get_rectangleShape();
 

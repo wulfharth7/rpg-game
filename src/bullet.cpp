@@ -1,10 +1,18 @@
 #include "bullet.h"
-
-bullet::bullet(int x, int y)
+#include <iostream>
+bullet::bullet(int x, int y, const sf::Vector2f& position, const sf::Vector2f& target)
 {
 	rectangleShape.setSize(sf::Vector2f(x, y));
-	rectangleShape.setPosition(sf::Vector2f(10,10));
+	rectangleShape.setPosition(position.x+30,position.y+30);
 	rectangleShape.setFillColor(sf::Color::Yellow);
+
+	sf::Vector2f trial = target - position;
+	sf::Vector2f betterVector;
+	float m = std::sqrt(trial.x * trial.x + trial.y * trial.y);
+	betterVector.x = trial.x / m;
+	betterVector.y = trial.y / m;
+	direction.x = betterVector.x;
+	direction.y = betterVector.y;
 }
 
 bullet::~bullet()
@@ -16,24 +24,23 @@ void bullet::Draw(sf::RenderWindow& window)
 	window.draw(rectangleShape);
 }
 
-void bullet::update(sf::RenderWindow& window,bool shooted,float time)
+void bullet::update(float time)
 {
-	if (shooted == true) {
-		sf::Vector2f localPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-		sf::Vector2f vec = sf::Vector2f(localPosition);
-
-		direction = rectangleShape.getPosition();
-		direction = localPosition - rectangleShape.getPosition();
-		rectangleShape.setPosition(rectangleShape.getPosition() + direction * 0.0003f * time * bullet_speed);
-	}
-	else {
-		rectangleShape.setPosition(rectangleShape.getPosition() + direction * 0.0003f * time * bullet_speed);
-	}
-	
+		rectangleShape.setPosition(rectangleShape.getPosition() + direction * 0.03f * time * bullet_speed);
 }
 
-void bullet::load()
+/*void bullet::load()
 {
+}*/
+
+int bullet::get_count()
+{
+	return count;
+}
+
+void bullet::set_count(int count)
+{
+	this->count = count;
 }
 
 sf::Vector2f bullet::get_direction()

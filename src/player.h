@@ -9,17 +9,16 @@ class player
 		~player();
 
 		void Draw(sf::RenderWindow& window);
-		void update(sf::RenderWindow& window,sf::Vector2f direction, bullet& bullet, float time);
+		void update(sf::RenderWindow& window, float time);
 		void load();
-		float player_speed = 1.0f; //i'll make it private
-		sf::Sprite get_texture();
-		int get_x_sheet();
-		int get_y_sheet();
+		float player_speed = 1.5f; //i'll make it private
+		sf::Vector2f mousePos;
 
 	private:
 		sf::Texture playerTexture;
 		sf::Sprite playerSprite;
 		int X_spritesheet = 0;
 		int Y_spritesheet = 0;
+		std::vector<bullet> bullets;
 };
 
