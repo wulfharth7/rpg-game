@@ -1,7 +1,10 @@
 #include "bullet.h"
 #include <iostream>
-bullet::bullet(int x, int y, const sf::Vector2f& position, const sf::Vector2f& target)
+
+
+bullet::bullet(int x, int y, const sf::Vector2f& position, const sf::Vector2f& target,int count)
 {
+	this->count = count;
 	rectangleShape.setSize(sf::Vector2f(x, y));
 	rectangleShape.setPosition(position.x+30,position.y+30);
 	rectangleShape.setFillColor(sf::Color::Yellow);
@@ -13,6 +16,7 @@ bullet::bullet(int x, int y, const sf::Vector2f& position, const sf::Vector2f& t
 	betterVector.y = trial.y / m;
 	direction.x = betterVector.x;
 	direction.y = betterVector.y;
+	
 }
 
 bullet::~bullet()
@@ -28,10 +32,6 @@ void bullet::update(float time)
 {
 		rectangleShape.setPosition(rectangleShape.getPosition() + direction * 0.03f * time * bullet_speed);
 }
-
-/*void bullet::load()
-{
-}*/
 
 int bullet::get_count()
 {

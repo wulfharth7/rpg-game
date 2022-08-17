@@ -11,7 +11,7 @@ class player
 		void Draw(sf::RenderWindow& window);
 		void update(sf::RenderWindow& window, float time);
 		void load();
-		float player_speed = 1.5f; //i'll make it private
+		float player_speed = 2.5f; //i'll make it private
 		sf::Vector2f mousePos;
 
 	private:
@@ -22,5 +22,7 @@ class player
 		std::vector<bullet> bullets;
 		float maxFireRate;
 		double fireRateTimer;
+		float spriteSheetRate;
+		float spriteSheetTimer;
 };
 
