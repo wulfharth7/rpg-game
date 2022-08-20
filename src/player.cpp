@@ -2,6 +2,7 @@
 #include <iostream>
 #include "bullet.h"
 
+
 int count = 12;
 player::player():
     maxFireRate(250), fireRateTimer(0), spriteSheetRate(100), spriteSheetTimer(0)
@@ -17,6 +18,9 @@ void player::Draw(sf::RenderWindow& window)
     for (size_t i = 0; i < bullets.size(); i++){
         if (bullets[i].get_count() > 0) {
             bullets[i].Draw(window);
+            if (bullets[i].distance > 15500) {
+               bullets.erase(bullets.begin() + i);
+            }
         }
     };
     window.draw(playerSprite);
@@ -113,7 +117,11 @@ void player::update(sf::RenderWindow& window, float time)
     for (size_t i = 0; i < bullets.size(); i++)
     {
         bullets[i].update(time);
+        bullets[i].movementTimer += time;
+        bullets[i].distance = bullets[i].movementTimer * bullets[i].bullet_speed;
+        std::cout << bullets[0].distance << std::endl;
         //check collision
+            
     }
 }
 

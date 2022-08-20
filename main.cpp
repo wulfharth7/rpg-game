@@ -3,6 +3,7 @@
 #include <vector>
 #include "src/bullet.h"
 #include "src/player.h"
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1700, 800), "SFML works!");
@@ -29,5 +30,4 @@ int main()
         window.draw(sprite);
         window.display();
     }
-
 }

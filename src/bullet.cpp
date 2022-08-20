@@ -16,7 +16,6 @@ bullet::bullet(int x, int y, const sf::Vector2f& position, const sf::Vector2f& t
 	betterVector.y = trial.y / m;
 	direction.x = betterVector.x;
 	direction.y = betterVector.y;
-	
 }
 
 bullet::~bullet()
