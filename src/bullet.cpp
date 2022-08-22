@@ -7,7 +7,7 @@ bullet::bullet(int x, int y, const sf::Vector2f& position, const sf::Vector2f& t
 	this->count = count;
 	rectangleShape.setSize(sf::Vector2f(x, y));
 	rectangleShape.setPosition(position.x+30,position.y+30);
-	rectangleShape.setFillColor(sf::Color::Yellow);
+	rectangleShape.setFillColor(sf::Color::Blue);
 
 	sf::Vector2f trial = target - position;
 	sf::Vector2f betterVector;

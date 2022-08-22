@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include <vector>
-
+#include "gameState.h"
 
 Game::Game():
 	gameWindow(sf::VideoMode(1700, 800), "SFML App")
@@ -22,12 +22,23 @@ void Game::initialize()
 	gameWindow.setFramerateLimit(200);
 }
 
-void Game::update()
+void Game::update(GameState& m_gameState)
 {
-	mouseSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(gameWindow)));
-	timer = clock.restart();
-	time = timer.asMilliseconds();
-	player.update(gameWindow, time);
+	switch (m_gameState) {
+		case GameState::PLAY:
+			mouseSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(gameWindow)));
+			timer = clock.restart();
+			time = timer.asMilliseconds();
+			player.update(gameWindow, time, m_gameState);
+			break;
+		case GameState::PAUSE:
+			//
+			break;
+		case GameState::MENU:
+			//
+			break;
+	};
+	
 }
 
 void Game::render()
@@ -40,8 +51,9 @@ void Game::render()
 
 void Game::run()
 {
+	GameState m_gameState = GameState::PLAY;
 	while (gameWindow.isOpen()) {
-		update();
+		update(m_gameState);
 		render();
 	}
 }

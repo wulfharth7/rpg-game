@@ -25,10 +25,12 @@ void player::Draw(sf::RenderWindow& window)
     window.draw(playerSprite);
 }
 
-void player::update(sf::RenderWindow& window, float time)
+void player::update(sf::RenderWindow& window, float time, GameState& m_gameState)
 {  
     fireRateTimer += time;
     spriteSheetTimer += time;
+
+    eventManager(m_gameState);
     move(time);
     shoot(time, window);    
 }
@@ -88,14 +90,14 @@ void player::move(float time)
 }
 
 void player::shoot(float time, sf::RenderWindow& window)
-{
-    
+{ 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && fireRateTimer >= maxFireRate) {
         mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
         bullets.push_back(bullet(10, 10, playerSprite.getPosition(), mousePos, count));
         count--;
         if (count <= 0) {
             count = 0;
+            bullets.clear();
         }
         int i = bullets.size() - 1;
         fireRateTimer = 0;
@@ -105,15 +107,12 @@ void player::shoot(float time, sf::RenderWindow& window)
         bullets[i].update(time);
         bullets[i].movementTimer += time;
         bullets[i].distance = bullets[i].movementTimer * bullets[i].bullet_speed;
-        std::cout << bullets[0].distance << std::endl;
         //check collision
-
     }
 }
 
 void player::changeSprite(char direction,float time)
 {
-    
     if (direction == 'W') {
         if (spriteSheetTimer >= spriteSheetRate) {
             X_spritesheet = X_spritesheet++;
@@ -155,4 +154,11 @@ void player::changeSprite(char direction,float time)
         X_spritesheet = 0;
     }
 
+}
+
+void player::eventManager(GameState& m_gameState)
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        m_gameState = GameState::PAUSE;
+    }
 }

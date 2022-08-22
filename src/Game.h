@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "bullet.h"
 #include "player.h"
+#include "gameState.h"
 
 class Game
 {
@@ -10,7 +11,7 @@ class Game
 		~Game();
 
 		void initialize();
-		void update();
+		void update(GameState& m_gameState);
 		void render();
 		void run();
 
