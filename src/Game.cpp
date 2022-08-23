@@ -24,38 +24,38 @@ void Game::initialize()
 
 void Game::update(GameState& m_gameState)
 {
-	switch (m_gameState) {
-		case GameState::PLAY:
-			timer = clock.restart();
-			time = timer.asMilliseconds();
-			player.update(gameWindow, time);
-			newState = GameState::PAUSE;
-			player.eventManager(m_gameState, newState,time); //stack of states could be better i guess, but the game isnt big so i wasn't sure and searched an easier way.
-			mouseSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(gameWindow)));
-			break;
-		case GameState::PAUSE:
-			timer = clock.restart();
-			time = timer.asMilliseconds();
-			newState = GameState::PLAY;
-			player.eventManager(m_gameState, newState,time);//stack of states could be better i guess, but the game isnt big so i wasn't sure and searched an easier way.
-			break;
-		case GameState::MENU:
-			break;
+	if (m_gameState == GameState::PLAY) {
+		shaderBlur.setUniform("blur_radius", 0.0f);
+		timer = clock.restart();
+		time = timer.asMilliseconds();
+		player.update(gameWindow, time);
+		newState = GameState::PAUSE;
+		player.eventManager(m_gameState, newState, time); //stack of states could be better i guess, but the game isnt big so i wasn't sure and searched an easier way.
+		mouseSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(gameWindow)));
+	}
+	else if (m_gameState == GameState::PAUSE) {
+		timer = clock.restart();
+		time = timer.asMilliseconds();
+		newState = GameState::PLAY;
+		player.eventManager(m_gameState, newState, time);//stack of states could be better i guess, but the game isnt big so i wasn't sure and searched an easier way.
+		//clean here
+		shaderBlur.loadFromFile("C:/Users/erknn/source/repos/game-engine/src/data/blur.frag", sf::Shader::Type::Fragment);
+		shaderBlur.setUniform("blur_radius", 0.04f);
+		//clean here
 	};
 }
 
 void Game::render(GameState& m_gameState)
 {
-	if (m_gameState == GameState::PLAY) {
-		gameWindow.clear(sf::Color::White);
-		player.Draw(gameWindow);
-		gameWindow.draw(mouseSprite);
-		gameWindow.display();
-	}else if (m_gameState == GameState::PAUSE) {
-
+	gameWindow.clear(sf::Color::White);
+	player.Draw(gameWindow,shaderBlur);
+	gameWindow.draw(mouseSprite,&shaderBlur);
+	if (m_gameState == GameState::PAUSE) {
+		
 	}else if (m_gameState == GameState::MENU) {
 
 	}
+	gameWindow.display();
 }
 
 void Game::run()

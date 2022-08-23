@@ -7,7 +7,7 @@ class bullet
 		bullet(int x, int y, const sf::Vector2f& position, const sf::Vector2f& target, int count);
 		~bullet();
 
-		void Draw(sf::RenderWindow& window);
+		void Draw(sf::RenderWindow& window, sf::Shader& blurState);
 		void update(float time);
 		int get_count();
 		void set_count(int count);

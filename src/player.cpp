@@ -13,17 +13,17 @@ player::~player()
 {
 }
 
-void player::Draw(sf::RenderWindow& window)
+void player::Draw(sf::RenderWindow& window, sf::Shader& blurState)
 {
     for (size_t i = 0; i < bullets.size(); i++){
         if (bullets[i].get_count() > 0) {
-            bullets[i].Draw(window);
+            bullets[i].Draw(window,blurState);
             if (bullets[i].distance > 15500) {
                bullets.erase(bullets.begin() + i);
             }
         }
     };
-    window.draw(playerSprite);
+    window.draw(playerSprite,&blurState);
 }
 
 void player::update(sf::RenderWindow& window, float time)

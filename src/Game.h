@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include "bullet.h"
 #include "player.h"
 #include "gameState.h"
@@ -20,6 +21,7 @@ class Game
 		sf::Texture mouseTexture;
 		sf::Sprite mouseSprite;//(mouseTexture);
 
+		sf::Shader shaderBlur;
 		sf::Clock clock;
 		sf::Time timer;
 		player player;

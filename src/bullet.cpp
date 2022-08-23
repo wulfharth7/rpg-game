@@ -6,7 +6,7 @@ bullet::bullet(int x, int y, const sf::Vector2f& position, const sf::Vector2f& t
 {
 	this->count = count;
 	rectangleShape.setSize(sf::Vector2f(x, y));
-	rectangleShape.setPosition(position.x+30,position.y+30);
+	rectangleShape.setPosition(position.x + 30, position.y + 30);
 	rectangleShape.setFillColor(sf::Color::Blue);
 
 	sf::Vector2f trial = target - position;
@@ -22,9 +22,9 @@ bullet::~bullet()
 {
 }
 
-void bullet::Draw(sf::RenderWindow& window)
+void bullet::Draw(sf::RenderWindow& window, sf::Shader& blurState)
 {
-	window.draw(rectangleShape);
+	window.draw(rectangleShape,&blurState);
 }
 
 void bullet::update(float time)

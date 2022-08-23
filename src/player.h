@@ -9,7 +9,7 @@ class player
 		player();
 		~player();
 
-		void Draw(sf::RenderWindow& window);
+		void Draw(sf::RenderWindow& window, sf::Shader& blurState);
 		void update(sf::RenderWindow& window, float time);
 		void load();
 		void move(float time);
