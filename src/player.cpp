@@ -1,10 +1,11 @@
 #include "player.h"
 #include <iostream>
 #include "bullet.h"
+#include <Windows.h>
 
 int count = 12;
 player::player():
-    maxFireRate(250), fireRateTimer(0), spriteSheetRate(100), spriteSheetTimer(0)
+    maxFireRate(250), fireRateTimer(0), spriteSheetRate(100), spriteSheetTimer(0),eventRate(100),eventTimer(0)
 {
 }
 
@@ -25,12 +26,11 @@ void player::Draw(sf::RenderWindow& window)
     window.draw(playerSprite);
 }
 
-void player::update(sf::RenderWindow& window, float time, GameState& m_gameState)
+void player::update(sf::RenderWindow& window, float time)
 {  
     fireRateTimer += time;
     spriteSheetTimer += time;
 
-    eventManager(m_gameState);
     move(time);
     shoot(time, window);    
 }
@@ -106,6 +106,7 @@ void player::shoot(float time, sf::RenderWindow& window)
     {
         bullets[i].update(time);
         bullets[i].movementTimer += time;
+        //std::cout << bullets[i].distance<<std::endl;
         bullets[i].distance = bullets[i].movementTimer * bullets[i].bullet_speed;
         //check collision
     }
@@ -153,12 +154,14 @@ void player::changeSprite(char direction,float time)
     else {
         X_spritesheet = 0;
     }
-
 }
 
-void player::eventManager(GameState& m_gameState)
+void player::eventManager(GameState& m_gameState, GameState& newState,float time)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-        m_gameState = GameState::PAUSE;
+    eventTimer += time;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && eventTimer > eventRate ) {
+        m_gameState = newState;
+        eventTimer = 0;
     }
+    std::cout << eventTimer << std::endl;
 }

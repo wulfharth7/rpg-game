@@ -12,7 +12,7 @@ class Game
 
 		void initialize();
 		void update(GameState& m_gameState);
-		void render();
+		void render(GameState& m_gameState);
 		void run();
 
 	private:
@@ -24,5 +24,6 @@ class Game
 		sf::Time timer;
 		player player;
 		float time;
+		GameState newState;
 };
 
