@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include "bullet.h"
-#include "player.h"
+#include "player/bullet.h"
+#include "player/player.h"
 #include "gameState.h"
 
 class Game
@@ -19,7 +19,7 @@ class Game
 	private:
 		sf::RenderWindow gameWindow;
 		sf::Texture mouseTexture;
-		sf::Sprite mouseSprite;//(mouseTexture);
+		sf::Sprite mouseSprite;
 
 		sf::Shader shaderBlur;
 		sf::Clock clock;

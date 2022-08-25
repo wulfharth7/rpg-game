@@ -16,32 +16,34 @@ void Game::initialize()
 {
 	mouseTexture.loadFromFile("assets/mouse/textures/cursor.png");
 	mouseSprite.setTexture(mouseTexture);
-	gameWindow.setMouseCursorVisible(false);
 	mouseSprite.scale(sf::Vector2f(0.5, 0.5));
-	player.load();
+
+	gameWindow.setMouseCursorVisible(false);
 	gameWindow.setFramerateLimit(200);
+	
+	player.load();
+	
+	shaderBlur.loadFromFile("C:/Users/erknn/source/repos/game-engine/src/data/blur.frag", sf::Shader::Type::Fragment);
+
 }
 
 void Game::update(GameState& m_gameState)
 {
+	timer = clock.restart();
+	time = timer.asMilliseconds();
+	mouseSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(gameWindow)));
+
 	if (m_gameState == GameState::PLAY) {
-		shaderBlur.setUniform("blur_radius", 0.0f);
-		timer = clock.restart();
-		time = timer.asMilliseconds();
-		player.update(gameWindow, time);
 		newState = GameState::PAUSE;
+		shaderBlur.setUniform("blur_radius", 0.0f);
+
+		player.update(gameWindow, time);
 		player.eventManager(m_gameState, newState, time); //stack of states could be better i guess, but the game isnt big so i wasn't sure and searched an easier way.
-		mouseSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(gameWindow)));
 	}
 	else if (m_gameState == GameState::PAUSE) {
-		timer = clock.restart();
-		time = timer.asMilliseconds();
 		newState = GameState::PLAY;
-		player.eventManager(m_gameState, newState, time);//stack of states could be better i guess, but the game isnt big so i wasn't sure and searched an easier way.
-		//clean here
-		shaderBlur.loadFromFile("C:/Users/erknn/source/repos/game-engine/src/data/blur.frag", sf::Shader::Type::Fragment);
 		shaderBlur.setUniform("blur_radius", 0.04f);
-		//clean here
+		player.eventManager(m_gameState, newState, time);//stack of states could be better i guess, but the game isnt big so i wasn't sure and searched an easier way.
 	};
 }
 

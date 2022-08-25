@@ -147,15 +147,15 @@
   <ItemGroup>
     <ClCompile Include="src\gameState.cpp" />
     <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\bullet.cpp" />
+    <ClCompile Include="src\player\bullet.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\player.cpp" />
+    <ClCompile Include="src\player\player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gameState.h" />
     <ClInclude Include="src\Game.h" />
-    <ClInclude Include="src\bullet.h" />
-    <ClInclude Include="src\player.h" />
+    <ClInclude Include="src\player\bullet.h" />
+    <ClInclude Include="src\player\player.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\data\blur.frag" />

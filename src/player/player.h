@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "bullet.h"
-#include "gameState.h"
+#include "../gameState.h"
 
 class player
 {
