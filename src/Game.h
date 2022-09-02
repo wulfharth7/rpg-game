@@ -16,16 +16,21 @@ class Game
 		void render(GameState& m_gameState);
 		void run();
 
+		void checkCollision();
+		void addToListOfHitbox(sf::FloatRect& hitbox, std::vector<sf::FloatRect>& hitboxList);
+
 	private:
+		GameState newState;
+
 		sf::RenderWindow gameWindow;
 		sf::Texture mouseTexture;
 		sf::Sprite mouseSprite;
 
+		std::vector<sf::FloatRect> hitboxList;
 		sf::Shader shaderBlur;
 		sf::Clock clock;
 		sf::Time timer;
 		player player;
 		float time;
-		GameState newState;
 };
 

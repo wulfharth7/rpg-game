@@ -145,17 +145,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\enemy\enemy.cpp" />
+    <ClCompile Include="src\map\map.cpp" />
     <ClCompile Include="src\gameState.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\player\bullet.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\player\player.cpp" />
+    <ClCompile Include="src\map\tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\enemy\enemy.h" />
+    <ClInclude Include="src\map\map.h" />
     <ClInclude Include="src\gameState.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\player\bullet.h" />
     <ClInclude Include="src\player\player.h" />
+    <ClInclude Include="src\map\tile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\data\blur.frag" />

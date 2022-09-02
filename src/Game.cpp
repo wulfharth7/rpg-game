@@ -20,7 +20,6 @@ void Game::initialize()
 
 	gameWindow.setMouseCursorVisible(false);
 	gameWindow.setFramerateLimit(200);
-	
 	player.load();
 	
 	shaderBlur.loadFromFile("C:/Users/erknn/source/repos/game-engine/src/data/blur.frag", sf::Shader::Type::Fragment);
@@ -33,16 +32,16 @@ void Game::update(GameState& m_gameState)
 	time = timer.asMilliseconds();
 	mouseSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(gameWindow)));
 
-	if (m_gameState == GameState::PLAY) {
+	if (m_gameState == GameState::PLAY) { //when its in the play mode
 		newState = GameState::PAUSE;
-		shaderBlur.setUniform("blur_radius", 0.0f);
+		shaderBlur.setUniform("blur_radius", 0.0f);//move these away from here
 
 		player.update(gameWindow, time);
 		player.eventManager(m_gameState, newState, time); //stack of states could be better i guess, but the game isnt big so i wasn't sure and searched an easier way.
 	}
-	else if (m_gameState == GameState::PAUSE) {
+	else if (m_gameState == GameState::PAUSE) { //when its in the pause mode
 		newState = GameState::PLAY;
-		shaderBlur.setUniform("blur_radius", 0.04f);
+		shaderBlur.setUniform("blur_radius", 0.04f);//move it away from here
 		player.eventManager(m_gameState, newState, time);//stack of states could be better i guess, but the game isnt big so i wasn't sure and searched an easier way.
 	};
 }

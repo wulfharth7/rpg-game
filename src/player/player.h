@@ -20,6 +20,7 @@ class player
 		sf::Vector2f mousePos;
 
 	private:
+		sf::RectangleShape boundingRectangle;
 		sf::Texture playerTexture;
 		sf::Sprite playerSprite;
 		int X_spritesheet = 0;

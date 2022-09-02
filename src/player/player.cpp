@@ -5,8 +5,9 @@
 
 int count = 12;
 player::player():
-    maxFireRate(250), fireRateTimer(0), spriteSheetRate(100), spriteSheetTimer(0),eventRate(100),eventTimer(0)
+    maxFireRate(250), fireRateTimer(0), spriteSheetRate(100), spriteSheetTimer(0),eventRate(150),eventTimer(0)
 {
+    
 }
 
 player::~player()
@@ -24,6 +25,7 @@ void player::Draw(sf::RenderWindow& window, sf::Shader& blurState)
         }
     };
     window.draw(playerSprite,&blurState);
+    window.draw(boundingRectangle);
 }
 
 void player::update(sf::RenderWindow& window, float time)
@@ -31,12 +33,20 @@ void player::update(sf::RenderWindow& window, float time)
     fireRateTimer += time;
     spriteSheetTimer += time;
 
+    boundingRectangle.setPosition(playerSprite.getPosition());
+
     move(time);
     shoot(time, window);    
 }
 
 void player::load()
 {
+    boundingRectangle.setFillColor(sf::Color::Transparent);
+    boundingRectangle.setOutlineColor(sf::Color::Red);
+    boundingRectangle.setOutlineThickness(1);
+
+    boundingRectangle.setSize(sf::Vector2f(64,64));
+
     if (playerTexture.loadFromFile("assets/player/textures/spritesheet.png")) {
         std::cout << "player image loaded" << std::endl;
         playerSprite.setTexture(playerTexture);
